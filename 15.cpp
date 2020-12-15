@@ -15,7 +15,7 @@ int main() {
 	while (cin >> x) v.push_back(x), cin.ignore();
 	int N = sz(v);
 	vector<int> pos(30000000 + 10);
-	rep(i,0,N) pos[v[i]] = i + 1;
+	rep(i,0,N-1) pos[v[i]] = i + 1;
 	x = v[N-1];
 	rep(i,N,30000000) {
 		int p = pos[x];
