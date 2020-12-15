@@ -16,10 +16,11 @@ int main() {
 	int N = sz(v);
 	vector<int> pos(30000000 + 10);
 	rep(i,0,N) pos[v[i]] = i + 1;
+	x = v[N-1];
 	rep(i,N,30000000) {
-		int p = pos[v[i-1]];
-		pos[v[i-1]] = i;
-		v.push_back(p == 0 ? 0 : i - p);
+		int p = pos[x];
+		pos[x] = i;
+		x = (p == 0 ? 0 : i - p);
 	}
-	cout << v.back() << endl;
+	cout << x << endl;
 }
