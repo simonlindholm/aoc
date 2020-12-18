@@ -4,6 +4,12 @@ class Add:
     def __init__(self, state=None):
         self.state = state
 
+    def __radd__(self, other):
+        return Add(other)
+
+    def __add__(self, other):
+        return self.state + other
+
     def __rmul__(self, other):
         return Add(other)
 
@@ -24,9 +30,12 @@ class Mul:
 
 MUL = Mul()
 
-res = 0
+part1 = 0
+part2 = 0
 for line in sys.stdin:
     line = line.strip()
-    res += eval(line.replace("+", "BLAH").replace("*", "+MUL+").replace("BLAH", "*ADD*"))
+    part1 += eval(line.replace("+", "BLAH").replace("*", "+MUL+").replace("BLAH", "+ADD+"))
+    part2 += eval(line.replace("+", "BLAH").replace("*", "+MUL+").replace("BLAH", "*ADD*"))
 
-print(res)
+print(part1)
+print(part2)
