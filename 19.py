@@ -10,8 +10,9 @@ def matches(ind, inp):
     if isinstance(e, str):
         return inp == e
     for cd in e:
-        if isinstance(cd, int):
-            if matches(cd, inp):
+        if len(cd) == 1:
+            c, = cd
+            if matches(c, inp):
                 seen[(ind, inp)] = True
                 return True
         elif len(cd) == 2:
@@ -36,7 +37,7 @@ for line in sys.stdin:
     line = line.strip()
     if not line:
         two = True
-        gr[8] = [42, (42, 8)]
+        gr[8] = [(42,), (42, 8)]
         gr[11] = [(42,31), (42,11,31)]
     elif not two:
         a,b = line.split(": ")
@@ -44,15 +45,7 @@ for line in sys.stdin:
         if b.startswith("\""):
             gr[a] = b[1:-1]
         else:
-            li = []
-            for x in b.split(" | "):
-                y = x.split()
-                if len(y) == 1:
-                    li.append(int(y[0]))
-                else:
-                    c,d = y
-                    li.append((int(c), int(d)))
-            gr[a] = li
+            gr[a] = [list(map(int, x.split())) for x in b.split(" | ")]
     else:
         if matches(0, line):
             res += 1
